@@ -1,4 +1,4 @@
-# ZoonomiX Pipeline
+# ZoonomiX 
 
 ZoonomiX is a comprehensive bioinformatics pipeline designed to analyze microbial genomes for identifying critical genes and predicting their roles in antibiotic resistance, virulence, pathogenicity, and zoonotic potential. Leveraging **BLASTn** and curated reference databases, ZoonomiX evaluates sequences to score future risks and adaptability of microbes.
 
@@ -74,7 +74,8 @@ ZoonomiX relies on curated FASTA reference databases:
   ```bash
   pip install pandas openpyxl biopython
 
-  **BLAST+ (Basic Local Alignment Search Tool)**
+BLAST+ (Basic Local Alignment Search Tool)
+
 Download and install BLAST+ from the NCBI BLAST website.
 Add BLAST executables (e.g., blastn, makeblastdb) to your system PATH.
 
@@ -114,28 +115,28 @@ Unzip the downloaded file and add the BLAST executable directory to your system'
 
 Test the installation:
 
-blastn -version
+  ##### blastn -version
 
 2. Prepare Input Files
 Ensure the FASTA file for query sequences is formatted correctly.
 Create a BLAST-compatible reference database using makeblastdb:
 
 
-makeblastdb -in <input_fasta> -dbtype nucl -out reference_db
+      ##### makeblastdb -in <input_fasta> -dbtype nucl -out reference_db
 
 3. Verify Python Environment
 Install Python 3.8 or later.
 Install required Python libraries:
 
 
-pip install pandas openpyxl biopython
+      ##### pip install pandas openpyxl biopython
 
 4. Run the Pipeline
 Modify the script to match local file paths.
 Execute the script from the terminal:
 
 
-python zoonomix.py --input query_sequences.fasta --dbpath /path/to/databases --output results.csv
+     ##### python zoonomix.py --input query_sequences.fasta --dbpath /path/to/databases --output results.csv
 
 ## License
 
