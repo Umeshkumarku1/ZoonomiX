@@ -113,29 +113,28 @@ Download BLAST+ tools from the NCBI BLAST website.
 Unzip the downloaded file and add the BLAST executable directory to your system's PATH.
 
 Test the installation:
-bash
-Copy code
+
 blastn -version
 
 2. Prepare Input Files
 Ensure the FASTA file for query sequences is formatted correctly.
 Create a BLAST-compatible reference database using makeblastdb:
-bash
-Copy code
+
+
 makeblastdb -in <input_fasta> -dbtype nucl -out reference_db
 
 3. Verify Python Environment
 Install Python 3.8 or later.
 Install required Python libraries:
-bash
-Copy code
+
+
 pip install pandas openpyxl biopython
 
 4. Run the Pipeline
 Modify the script to match local file paths.
 Execute the script from the terminal:
-bash
-Copy code
+
+
 python zoonomix.py --input query_sequences.fasta --dbpath /path/to/databases --output results.csv
 
 ## License
