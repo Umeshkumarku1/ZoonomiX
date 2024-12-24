@@ -58,11 +58,11 @@ ZoonomiX relies on curated FASTA reference databases:
 
 ## Prerequisites
 
-### 1. Hardware Requirements
+### 1. Hardware Requirements:
 - A computer with sufficient **RAM** and **storage** for bioinformatics tasks.
 - Stable **internet connection** to download tools and databases.
 
-### 2. Software Requirements
+### 2. Software Requirements:
 
 #### Python Environment
 - **Python 3.8 or later**.
@@ -147,7 +147,7 @@ Execute the script from the terminal:
 
 ##### python zoonomix.py --input query_sequences.fasta --dbpath /path/to/databases --output results.csv
 
-## License
+## License:
 
 ZoonomiX is free to use and share. 
 
