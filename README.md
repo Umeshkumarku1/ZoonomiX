@@ -58,40 +58,45 @@ ZoonomiX relies on curated FASTA reference databases:
 
 ## Prerequisites:
 
-### 1. Hardware Requirements:
+**1. Hardware Requirements:**
 - A computer with sufficient **RAM** and **storage** for bioinformatics tasks.
 - Stable **internet connection** to download tools and databases.
 
-### 2. Software Requirements:
+**2. Software Requirements:**
 
-#### Python Environment
+**Python Environment**
 - **Python 3.8 or later**.
 - Required Python Libraries:
   - `pandas`: For data manipulation and analysis.
   - `openpyxl`: For Excel file handling.
   - `biopython`: For biological sequence data processing.
+    
 - Install libraries using pip:
-  ```bash
-  pip install pandas openpyxl biopython
+  
+ `pip install pandas openpyxl biopython`
+  
 
 BLAST+ (Basic Local Alignment Search Tool)
+
 
 Download and install BLAST+ from the NCBI BLAST website.
 
 Add BLAST executables (e.g., blastn, makeblastdb) to your system PATH.
 
 ### Test installation:
-bash
+
 Copy code
-blastn -version
+
+`blastn -version`
+
 Spreadsheet Software
 Microsoft Excel or alternatives like LibreOffice or Google Sheets to view output files.
 Text Editor/IDE
 
 ### Recommended editors:
-VSCode
-PyCharm
-Any plain text editor.
+- VSCode
+- PyCharm
+- Any plain text editor.
 
 ### Query Sequences File:
 A properly formatted FASTA file containing microbial sequences (e.g., query_sequences.fasta).
@@ -110,7 +115,8 @@ Annotated Results:
 Summarizes gene categories, alignment statistics, risk scores, and pathogenicity levels.
 
 ### Setup Instructions
-1. Set Up BLAST+
+
+**1. Set Up BLAST+**
 
 Download BLAST+ tools from the NCBI BLAST website.
 
@@ -118,16 +124,17 @@ Unzip the downloaded file and add the BLAST executable directory to your system'
 
 Test the installation:
 
-  ###### blastn -version
+`blastn -version`
 
-2. Prepare Input Files
+**2. Prepare Input Files**
 
 Ensure the FASTA file for query sequences is formatted correctly.
+
 
 Create a BLAST-compatible reference database using makeblastdb:
 
 
-##### makeblastdb -in <input_fasta> -dbtype nucl -out reference_db
+`makeblastdb -in <input_fasta> -dbtype nucl -out reference_db`
 
 The reference_db.nsq file can be accessed from this link.
 
@@ -135,14 +142,14 @@ The reference_db.nsq file can be accessed from this link.
 Here is the direct link to access the reference_db.nsq file: https://drive.google.com/file/d/1Tw67zxHtDQePQsi3ZtrZQoB9sqc9NFk-/view?usp=drive_link.
 
 
-3. Verify Python Environment
+**3. Verify Python Environment**
 
 Install Python 3.8 or later.
 
 Install required Python libraries:
 
 
-##### pip install pandas openpyxl biopython
+`pip install pandas openpyxl biopython`
 
 4. Run the Pipeline
 
@@ -151,13 +158,14 @@ Modify the script to match local file paths.
 Execute the script from the terminal:
 
 
-##### python zoonomix.py --input query_sequences.fasta --dbpath /path/to/databases --output results.csv
+`python zoonomix.py --input query_sequences.fasta --dbpath /path/to/databases --output results.csv`
 
 ## License:
 
 ZoonomiX is free to use and share. 
 
 **BLAST+ (Basic Local Alignment Search Tool)**, a core component of this pipeline, is also free to use and distributed under the terms of the **Public Domain Notice** from the National Center for Biotechnology Information (NCBI). For more details, visit the [NCBI BLAST+ License](https://www.ncbi.nlm.nih.gov/IEB/ToolBox/CPP_DOC/lxr/source/doc/publicdomain.txt).
+
 
 Users are encouraged to comply with any licenses for third-party tools or data used alongside this pipeline.
 
