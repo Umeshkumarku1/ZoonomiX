@@ -129,6 +129,12 @@ Create a BLAST-compatible reference database using makeblastdb:
 
 ##### makeblastdb -in <input_fasta> -dbtype nucl -out reference_db
 
+The reference_db.nsq file can be accessed from this link.
+
+
+Here is the direct link to access the reference_db.nsq file: https://drive.google.com/file/d/1Tw67zxHtDQePQsi3ZtrZQoB9sqc9NFk-/view?usp=drive_link.
+
+
 3. Verify Python Environment
 
 Install Python 3.8 or later.
