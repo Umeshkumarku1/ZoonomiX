@@ -29,9 +29,9 @@ CATEGORY_WEIGHTS = {
 }
 
 RISK_LEVELS = {
-    "High Risk of pathogenicity and Zoonotic potential": lambda score: score >= 100,
-    "Moderate Risk of pathogenicity and Zoonotic potential": lambda score: 50 <= score < 100,
-    "Low Risk of pathogenicity and Zoonotic potential": lambda score: score < 50
+    "High Risk of pathogenicity and Zoonotic potential": lambda score: score >= 50,
+    "Moderate Risk of pathogenicity and Zoonotic potential": lambda score: 30 <= score < 50,
+    "Low Risk of pathogenicity and Zoonotic potential": lambda score: score < 30
 }
 
 # Add new genes and proteins for detection
@@ -135,6 +135,14 @@ def parse_blast_results(blast_results_file, annotation_file):
         "qseqid", "sseqid", "pident", "length", "mismatch", "gapopen",
         "qstart", "qend", "sstart", "send", "evalue", "bitscore"
     ])
+
+    # Deduplicate entries by 'qseqid' and 'sseqid'
+    blast_results = blast_results.drop_duplicates(subset=['qseqid', 'sseqid'])
+
+    # Add query coverage filter (80-100%)
+    blast_results['query_coverage'] = (blast_results['length'] / (blast_results['qend'] - blast_results['qstart'] + 1)) * 100
+    blast_results = blast_results[(blast_results['query_coverage'] >= 80) & (blast_results['query_coverage'] <= 100)]
+
     merged = pd.merge(blast_results, annotations, on="sseqid", how="left")
 
     # Debugging: Print merge summary
