@@ -5,27 +5,27 @@ import subprocess
 
 # Define category weights and risk levels
 CATEGORY_WEIGHTS = {
-    'Adherence': 4,
-    'Biofilm': 3,
+'Adherence': 6,
+    'Biofilm': 4,
     'Efflux_pump': 4,
-    'Exotoxin': 5,
+    'Exotoxin': 6,
     'Resistance': 4,
-    'T3SS': 5,
+    'T3SS': 6,
     'T4SS': 5,
     'T6SS': 5,
-    'Integrative_Conjugative_Element': 4,
+    'Integrative_Conjugative_Element': 5,
     'ompA': 6,
-    'superoxide_dismutase': 6,
-    'capsular_polysaccharide_synthesis_enzyme_CapB': 6,
+    'superoxide_dismutase': 5,
+    'capsular_polysaccharide_synthesis_enzyme_CapB': 5,
     'FimH_protein': 6,
-    'phospholipase_D': 6,
+    'phospholipase_D': 5,
     'toxin_A': 6,
     'pertussis_toxin_subunit_1': 6,
     'invA': 6,
     'lpxD': 6,
     'Filamentous_hemagglutinin-adhesin': 6,
-    'mgtC': 6,
-    'RNA_polymerase_sigma_factor_RpoS': 6
+    'mgtC': 5,
+    'RNA_polymerase_sigma_factor_RpoS': 5
 }
 
 RISK_LEVELS = {
