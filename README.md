@@ -4,7 +4,7 @@ ZoonomiX is a comprehensive bioinformatics pipeline designed to analyze microbia
 
 ---
 
-## Features
+## Features:
 
 - **Gene Identification**:
   - Detects genes linked to adherence, biofilm formation, efflux pumps, virulence factors, and more.
@@ -37,7 +37,7 @@ ZoonomiX is a comprehensive bioinformatics pipeline designed to analyze microbia
 
 ---
 
-## Reference Databases
+## Reference Databases:
 
 ZoonomiX relies on curated FASTA reference databases:
 
@@ -56,7 +56,7 @@ ZoonomiX relies on curated FASTA reference databases:
 
 ---
 
-## Prerequisites
+## Prerequisites:
 
 ### 1. Hardware Requirements:
 - A computer with sufficient **RAM** and **storage** for bioinformatics tasks.
