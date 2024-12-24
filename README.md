@@ -118,7 +118,7 @@ Unzip the downloaded file and add the BLAST executable directory to your system'
 
 Test the installation:
 
-  ##### blastn -version
+  ###### blastn -version
 
 2. Prepare Input Files
 
@@ -127,7 +127,7 @@ Ensure the FASTA file for query sequences is formatted correctly.
 Create a BLAST-compatible reference database using makeblastdb:
 
 
-      ##### makeblastdb -in <input_fasta> -dbtype nucl -out reference_db
+##### makeblastdb -in <input_fasta> -dbtype nucl -out reference_db
 
 3. Verify Python Environment
 
@@ -136,7 +136,7 @@ Install Python 3.8 or later.
 Install required Python libraries:
 
 
-      ##### pip install pandas openpyxl biopython
+##### pip install pandas openpyxl biopython
 
 4. Run the Pipeline
 
@@ -145,7 +145,7 @@ Modify the script to match local file paths.
 Execute the script from the terminal:
 
 
-     ##### python zoonomix.py --input query_sequences.fasta --dbpath /path/to/databases --output results.csv
+##### python zoonomix.py --input query_sequences.fasta --dbpath /path/to/databases --output results.csv
 
 ## License
 
