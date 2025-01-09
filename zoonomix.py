@@ -163,24 +163,32 @@ def calculate_scores_and_risks(results):
 
 def save_results_to_excel(high_identity_results, mid_identity_results, excel_path):
     """Save results and summary to an Excel file."""
-    high_identity_results = high_identity_results[high_identity_results['pident'] >= 99]
+    # Filter high-identity results (99-100% identity) and bit score > 1000
+    high_identity_results = high_identity_results[(high_identity_results['pident'] >= 99) & (high_identity_results['bitscore'] > 1000)]
 
     with pd.ExcelWriter(excel_path) as writer:
         # Save Microbe Status (99-100% identity)
-        high_identity_results.drop(columns=['Category'], inplace=True, errors='ignore')
-        high_identity_results.to_excel(writer, index=False, sheet_name="Microbe Status")
+        high_identity_unique = high_identity_results.drop_duplicates(subset=['qstart', 'qend'])
+        high_identity_unique.drop(columns=['Category'], inplace=True, errors='ignore')
+        high_identity_unique.to_excel(writer, index=False, sheet_name="Microbe Status")
 
-        # Save Future Mutation (90-99% identity)
-        mid_identity_results.drop(columns=['Category'], inplace=True, errors='ignore')
-        mid_identity_results.to_excel(writer, index=False, sheet_name="Future Mutation")
+        # Save Future Mutation (90-99% identity) and bit score > 1000
+        mid_identity_results = mid_identity_results[mid_identity_results['bitscore'] > 1000]
+        mid_identity_unique = mid_identity_results.drop_duplicates(subset=['qstart', 'qend'])
+        mid_identity_unique.drop(columns=['Category'], inplace=True, errors='ignore')
+        mid_identity_unique.to_excel(writer, index=False, sheet_name="Future Mutation")
 
         # Create Gene Count sheet
         keywords = list(set(CATEGORY_MAPPING.keys()).union(DETECTION_GENES))  # Ensure unique keys
         gene_count_data = []
 
         for keyword in keywords:
-            current_count = high_identity_results['sseqid'].str.contains(keyword, case=False, na=False).sum()
-            future_count = mid_identity_results['sseqid'].str.contains(keyword, case=False, na=False).sum()
+            # Filter unique entries based on `qstart` and `qend`
+            high_filtered = high_identity_unique[high_identity_unique['sseqid'].str.contains(keyword, case=False, na=False)]
+            mid_filtered = mid_identity_unique[mid_identity_unique['sseqid'].str.contains(keyword, case=False, na=False)]
+
+            current_count = len(high_filtered)
+            future_count = len(mid_filtered)
 
             # Debugging: Print counts for each keyword
             print(f"Keyword: {keyword}, Current Count: {current_count}, Future Count: {future_count}")
@@ -230,6 +238,7 @@ def save_results_to_excel(high_identity_results, mid_identity_results, excel_pat
         summary_df.to_excel(writer, index=False, sheet_name="Summary")
 
         print("Gene Count and Summary sheets saved successfully.")
+
 
 def main():
     query_file = r"C:\\Users\\Lenovo\\Desktop\\Zoonoticmap\\query_sequences.fasta"
