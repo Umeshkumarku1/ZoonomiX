@@ -129,7 +129,7 @@ def run_blast(query_file, db_path, output_file):
     print(f"BLAST completed. Results saved to {output_file}.")
 
 def parse_blast_results(blast_results_file, annotation_file):
-    """Parse BLAST results and merge with annotations."""
+    """Parse BLAST results, merge overlapping regions for ICEberg, and remove duplicates where qstart or qend are the same for all genes."""
     annotations = pd.read_excel(annotation_file)
     blast_results = pd.read_csv(blast_results_file, sep="\t", header=None, names=[
         "qseqid", "sseqid", "pident", "length", "mismatch", "gapopen",
@@ -139,16 +139,65 @@ def parse_blast_results(blast_results_file, annotation_file):
     # Deduplicate entries by 'qseqid' and 'sseqid'
     blast_results = blast_results.drop_duplicates(subset=['qseqid', 'sseqid'])
 
-    # Add query coverage filter (80-100%)
-    blast_results['query_coverage'] = (blast_results['length'] / (blast_results['qend'] - blast_results['qstart'] + 1)) * 100
-    blast_results = blast_results[(blast_results['query_coverage'] >= 80) & (blast_results['query_coverage'] <= 100)]
+    # Sort by qseqid and qstart for processing
+    blast_results.sort_values(by=["qseqid", "qstart"], inplace=True)
 
-    merged = pd.merge(blast_results, annotations, on="sseqid", how="left")
+    filtered_results = []
+    for qseqid, group in blast_results.groupby("qseqid"):
+        merged_intervals = []  # To track merged intervals for ICEberg
+        processed_qstarts = set()  # Track all processed qstart values
+        processed_qends = set()  # Track all processed qend values
+
+        for _, row in group.iterrows():
+            qstart, qend = row["qstart"], row["qend"]
+            sseqid = row["sseqid"]
+
+            # Skip if qstart or qend is already processed
+            if qstart in processed_qstarts or qend in processed_qends:
+                continue
+
+            # Add qstart and qend to the processed sets
+            processed_qstarts.add(qstart)
+            processed_qends.add(qend)
+
+            # Check if the sseqid belongs to ICEberg
+            if "ICEberg" in sseqid:
+                merged = False
+                for interval in merged_intervals:
+                    # If the interval overlaps with an existing one, merge them
+                    if interval[0] <= qstart <= interval[1] or interval[0] <= qend <= interval[1]:
+                        interval[0] = min(interval[0], qstart)
+                        interval[1] = max(interval[1], qend)
+                        merged = True
+                        break
+                if not merged:
+                    # Add a new interval for ICEberg
+                    merged_intervals.append([qstart, qend])
+                else:
+                    # Skip adding as it's merged
+                    continue
+
+            # Add the row to filtered results
+            filtered_results.append(row)
+
+    # Create a DataFrame from the filtered results
+    filtered_results_df = pd.DataFrame(filtered_results)
+
+    # Add query coverage filter (80-100%)
+    filtered_results_df['query_coverage'] = (
+        filtered_results_df['length'] / (filtered_results_df['qend'] - filtered_results_df['qstart'] + 1)) * 100
+    filtered_results_df = filtered_results_df[
+        (filtered_results_df['query_coverage'] >= 80) & (filtered_results_df['query_coverage'] <= 100)]
+
+    # Merge with annotations
+    merged = pd.merge(filtered_results_df, annotations, on="sseqid", how="left")
 
     # Debugging: Print merge summary
     print(f"Merged results:\n{merged.head()}\n")
 
     return merged
+
+
 
 def calculate_scores_and_risks(results):
     """Calculate scores and risk levels."""
@@ -163,16 +212,16 @@ def calculate_scores_and_risks(results):
 
 def save_results_to_excel(high_identity_results, mid_identity_results, excel_path):
     """Save results and summary to an Excel file."""
-    # Filter high-identity results (99-100% identity) and bit score > 1000
-    high_identity_results = high_identity_results[(high_identity_results['pident'] >= 99) & (high_identity_results['bitscore'] > 1000)]
+    # Filter high-identity results (100% identity) and bit score > 750
+    high_identity_results = high_identity_results[(high_identity_results['pident'] >= 99.99) & (high_identity_results['bitscore'] > 750)]
 
     with pd.ExcelWriter(excel_path) as writer:
-        # Save Microbe Status (99-100% identity)
+        # Save Microbe Status (100% identity)
         high_identity_unique = high_identity_results.drop_duplicates(subset=['qstart', 'qend'])
         high_identity_unique.drop(columns=['Category'], inplace=True, errors='ignore')
         high_identity_unique.to_excel(writer, index=False, sheet_name="Microbe Status")
 
-        # Save Future Mutation (90-99% identity) and bit score > 1000
+        # Save Future Mutation (95-99.99% identity) and bit score > 1000
         mid_identity_results = mid_identity_results[mid_identity_results['bitscore'] > 1000]
         mid_identity_unique = mid_identity_results.drop_duplicates(subset=['qstart', 'qend'])
         mid_identity_unique.drop(columns=['Category'], inplace=True, errors='ignore')
@@ -183,7 +232,7 @@ def save_results_to_excel(high_identity_results, mid_identity_results, excel_pat
         gene_count_data = []
 
         for keyword in keywords:
-            # Filter unique entries based on `qstart` and `qend`
+            # Filter unique entries based on qstart and qend
             high_filtered = high_identity_unique[high_identity_unique['sseqid'].str.contains(keyword, case=False, na=False)]
             mid_filtered = mid_identity_unique[mid_identity_unique['sseqid'].str.contains(keyword, case=False, na=False)]
 
@@ -251,11 +300,11 @@ def main():
     run_blast(query_file, db_path, blast_results_file)
     results = parse_blast_results(blast_results_file, annotation_file)
 
-    high_identity_results = results[results['pident'] >= 99]
-    mid_identity_results = results[(results['pident'] >= 90) & (results['pident'] < 99)]
+    high_identity_results = results[results['pident'] >= 99.99]
+    mid_identity_results = results[(results['pident'] >= 95) & (results['pident'] < 99.99)]
 
     save_results_to_excel(high_identity_results, mid_identity_results, final_excel)
     print(f"Results saved to {final_excel}")
 
 if __name__ == "__main__":
-    main()
+    main() 
