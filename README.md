@@ -32,8 +32,8 @@ User-defined thresholds for BLASTn alignment:
 E-value
 Percent identity
 Query coverage
-✅ Detailed Outputs
 
+✅ Detailed Outputs
 Tabular reports with gene annotations, alignment statistics, and risk scores.
 Summarized Excel files for easy interpretation.
 
