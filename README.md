@@ -35,6 +35,7 @@ Query coverage
 
 ✅ Detailed Outputs
 Tabular reports with gene annotations, alignment statistics, and risk scores.
+
 Summarized Excel files for easy interpretation.
 
 ## Features:
