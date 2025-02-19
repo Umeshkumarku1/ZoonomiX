@@ -83,7 +83,6 @@ ZoonomiX relies on curated **FASTA** reference databases:
 | **T6SS_genes**               | 1,411                  | Genes for Type 6 Secretion Systems.                 |
 | **Virulence_genes_Zoonotic**  | 13                     | Zoonotic virulence factors.                         |
 
-
 # ⚙️ Prerequisites  
 
 ### 1️⃣ Hardware Requirements  
@@ -117,7 +116,6 @@ ZoonomiX relies on curated **FASTA** reference databases:
      ```bash
      blastn -version
      ```
-
 ---
 
 ### 📊 Spreadsheet Software  
@@ -128,7 +126,6 @@ ZoonomiX relies on curated **FASTA** reference databases:
   - **VSCode**  
   - **PyCharm**  
   - **Any plain text editor**  
-
 
 ## 🔧 Setup Instructions  
 
@@ -157,7 +154,6 @@ ZoonomiX relies on curated **FASTA** reference databases:
   ```bash
   
   makeblastdb -in <input_fasta> -dbtype nucl -out reference_db
-
 
 ## 3️⃣ Verify Python Environment  
 
