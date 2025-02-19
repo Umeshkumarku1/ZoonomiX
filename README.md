@@ -165,52 +165,20 @@ ZoonomiX relies on curated **FASTA** reference databases:
   ```bash
   
   pip install pandas openpyxl biopython
+  
 
+---
 
 ## ▶️ Running ZoonomiX  
 
 Modify the script to match your local file paths, then execute:  
 
 ```bash
-
 python zoonomix.py --input query_sequences.fasta --dbpath /path/to/databases --output results.csv
 
 
 
-## 📜 License  
 
-ZoonomiX is **free to use and share**.  
 
-**BLAST+ (Basic Local Alignment Search Tool)** is distributed under the **Public Domain Notice** from the **National Center for Biotechnology Information (NCBI)**.  
 
-Users should comply with any **licenses for third-party tools or datasets** used alongside this pipeline.  
 
----
-
-## 🤝 Contribute  
-
-👨‍💻 **Contributions are welcome!** If you'd like to:  
-- **Report issues**  
-- **Suggest new features**  
-- **Submit a pull request**  
-
-Feel free to **open an issue** in this repository.  
-
----
-
-## 📩 Contact  
-
-For inquiries, suggestions, or collaborations, reach out at:  
-📧 **Email:** [research.umeshkumarku@gmail.com](mailto:research.umeshkumarku@gmail.com)  
-
----
-
-## 📌 Citation  
-
-If you use **ZoonomiX** in your research, please **cite it appropriately**!  
-
----
-
-## 🚀 Get Started with ZoonomiX and Unlock Insights into Microbial Genomics!  
-
-🔗 **GitHub Repository Link:** *(https://github.com/Umeshkumarku1/ZoonomiX)*  
