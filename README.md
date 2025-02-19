@@ -1,4 +1,4 @@
-# ZoonomiX 🧬
+# ZoonomiX 🦠  
 
 ## A Bioinformatics Pipeline for Microbial Genomic Analysis and Risk Prediction  
 
