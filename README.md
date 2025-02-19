@@ -1,8 +1,40 @@
 # ZoonomiX 
 
-ZoonomiX is a comprehensive bioinformatics pipeline designed to analyze microbial genomes for identifying critical genes and predicting their roles in antibiotic resistance, virulence, pathogenicity, and zoonotic potential. Leveraging **BLASTn** and curated reference databases, ZoonomiX evaluates sequences to score future risks and adaptability of microbes.
+ZoonomiX is an advanced bioinformatics pipeline designed to analyze microbial genomes, identify critical genes, and predict their roles in antibiotic resistance, virulence, pathogenicity, and zoonotic potential. By leveraging BLASTn and curated reference databases, ZoonomiX provides a systematic approach to evaluating microbial adaptability and future risks.
+
+Understanding the genetic makeup of microbes is essential in combating antimicrobial resistance (AMR), zoonotic diseases, and emerging infectious threats. ZoonomiX offers a user-friendly, customizable, and efficient platform to aid researchers in studying microbial evolution, host-pathogen interactions, and horizontal gene transfer (HGT).
 
 ---
+
+Key Features
+✅ Gene Identification
+
+Detects genes linked to adherence, biofilm formation, efflux pumps, virulence factors, and more.
+Supports custom and curated reference databases for enhanced accuracy.
+✅ Resistance and Pathogenicity Prediction
+
+Identifies genes contributing to antibiotic resistance and virulence.
+Scores microbes based on their pathogenicity and zoonotic risk.
+✅ Comprehensive Analysis with Curated Databases
+ZoonomiX integrates a range of genetic markers, including:
+
+Adherence factors
+Biofilm-related genes
+Efflux pumps
+Exotoxins
+Integrative and Conjugative Elements (ICEs)
+Secretion Systems (T3SS, T4SS, T6SS)
+Zoonotic virulence factors
+✅ Customizable Parameters
+
+User-defined thresholds for BLASTn alignment:
+E-value
+Percent identity
+Query coverage
+✅ Detailed Outputs
+
+Tabular reports with gene annotations, alignment statistics, and risk scores.
+Summarized Excel files for easy interpretation.
 
 ## Features:
 
