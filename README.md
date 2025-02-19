@@ -150,31 +150,31 @@ ZoonomiX relies on curated **FASTA** reference databases:
    ```bash
    blastn -version
    
-2️⃣ Prepare Input Files
+## 2️⃣ Prepare Input Files  
 
-Ensure the FASTA file for query sequences is formatted correctly.
-Create a BLAST-compatible reference database:
-bash
-Copy
-Edit
-makeblastdb -in <input_fasta> -dbtype nucl -out reference_db
-Use the provided prebuilt reference database:
-Download reference_db.nsq
+- Ensure the **FASTA file** for query sequences is formatted correctly.  
+- Create a **BLAST-compatible reference database**:  
+  ```bash
+  
+  makeblastdb -in <input_fasta> -dbtype nucl -out reference_db
 
-3️⃣ Verify Python Environment
-Install Python 3.8+ and required dependencies:
-bash
-Copy
-Edit
-pip install pandas openpyxl biopython
 
-▶️ Running ZoonomiX
-Modify the script to match your local file paths, then execute:
+## 3️⃣ Verify Python Environment  
 
-bash
-Copy
-Edit
+- Install **Python 3.8+** and required dependencies:  
+  ```bash
+  
+  pip install pandas openpyxl biopython
+
+
+## ▶️ Running ZoonomiX  
+
+Modify the script to match your local file paths, then execute:  
+
+```bash
+
 python zoonomix.py --input query_sequences.fasta --dbpath /path/to/databases --output results.csv
+
 
 
 ## 📜 License  
