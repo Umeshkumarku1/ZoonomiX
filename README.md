@@ -175,10 +175,3 @@ Modify the script to match your local file paths, then execute:
 
 ```bash
 python zoonomix.py --input query_sequences.fasta --dbpath /path/to/databases --output results.csv
-
-
-
-
-
-
-
