@@ -6,18 +6,19 @@ Understanding the genetic makeup of microbes is essential in combating antimicro
 
 ---
 
-Key Features
+# Key Features
+
 ✅ Gene Identification
 
 Detects genes linked to adherence, biofilm formation, efflux pumps, virulence factors, and more.
 Supports custom and curated reference databases for enhanced accuracy.
-✅ Resistance and Pathogenicity Prediction
 
+✅ Resistance and Pathogenicity Prediction
 Identifies genes contributing to antibiotic resistance and virulence.
 Scores microbes based on their pathogenicity and zoonotic risk.
+
 ✅ Comprehensive Analysis with Curated Databases
 ZoonomiX integrates a range of genetic markers, including:
-
 Adherence factors
 Biofilm-related genes
 Efflux pumps
@@ -25,8 +26,8 @@ Exotoxins
 Integrative and Conjugative Elements (ICEs)
 Secretion Systems (T3SS, T4SS, T6SS)
 Zoonotic virulence factors
-✅ Customizable Parameters
 
+✅ Customizable Parameters
 User-defined thresholds for BLASTn alignment:
 E-value
 Percent identity
