@@ -1,15 +1,19 @@
-# ZoonomiX 🚀  
+# ZoonomiX 🧬
 
 ## A Bioinformatics Pipeline for Microbial Genomic Analysis and Risk Prediction  
 
 ## 🔬 Introduction  
 
-ZoonomiX is an **advanced bioinformatics pipeline** designed to **analyze microbial genomes**, **identify critical genes**, and **predict their roles** in:  
+**ZoonomiX** is a **comprehensive bioinformatics pipeline** designed to analyze **microbial genomes**, identify **pathogenicity and resistance genes**, and detect **mobile genetic elements** to assess zoonotic risk. By integrating **BLASTn** for precise scoring and leveraging curated reference databases, ZoonomiX delivers **actionable insights for zoonotic risk assessment and advanced genomic research**.  
 
-- **Antibiotic resistance**  
-- **Virulence**  
-- **Pathogenicity**  
-- **Zoonotic potential**  
+This pipeline enables researchers to:  
+
+✅ Detect **antibiotic resistance genes**  
+✅ Identify **virulence factors and pathogenicity markers**  
+✅ Analyze **horizontal gene transfer (HGT)**, including **Integrative and Conjugative Elements (ICEs)**  
+✅ Score microbes for **zoonotic potential and adaptability**  
+
+ZoonomiX provides a **user-friendly, customizable, and efficient** framework for studying **microbial evolution, host-pathogen interactions, and genomic epidemiology**.  
 
 By leveraging **BLASTn** and **curated reference databases**, ZoonomiX systematically evaluates **microbial adaptability and future risks**.  
 
