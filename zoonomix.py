@@ -1,7 +1,11 @@
 import os
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 from Bio import SeqIO
+from matplotlib.colors import ListedColormap 
 import subprocess
+
 
 # Define category weights and risk levels
 CATEGORY_WEIGHTS = {
@@ -287,6 +291,75 @@ def save_results_to_excel(high_identity_results, mid_identity_results, excel_pat
         summary_df.to_excel(writer, index=False, sheet_name="Summary")
 
         print("Gene Count and Summary sheets saved successfully.")
+        
+
+
+def load_and_process_data(excel_path):
+    """Loads the 'Gene Count' sheet, processes it into a proper matrix format with microbes."""
+    # Load the "Gene Count" sheet
+    df = pd.read_excel(excel_path, sheet_name="Gene Count")
+
+    # Ensure proper column names
+    df.columns = ["Gene/Category", "Current Status", "Future Mutation"]
+
+    # Convert gene presence into categorical values (0 = white, microbial = red, future = blue)
+    df["Current Status"] = df["Current Status"].apply(lambda x: 1 if x > 0 else 0)
+    df["Future Mutation"] = df["Future Mutation"].apply(lambda x: 2 if x > 0 else 0)
+
+    # Transpose to have genes as columns and add microbes as row indices
+    df = df.set_index("Gene/Category").T
+
+    # Fix: Ensure the number of row names matches the data shape
+    microbe_labels = [f"Microbe {i+1}" for i in range(len(df))]  # Dynamic row labels
+    df.index = microbe_labels
+
+    return df
+
+
+def generate_heatmap(excel_path, heatmap_path):
+    """Generate a heatmap with genes as rows and microbes as columns from the 'Gene Count' sheet in the Excel file."""
+    # Load the "Gene Count" sheet
+    df = pd.read_excel(excel_path, sheet_name="Gene Count")
+
+    # Ensure proper column names
+    df.columns = ["Gene/Category", "Microbial Status", "Future Mutation"]
+
+    # Convert values based on presence
+    def assign_color(row):
+        if row["Microbial Status"] >= 1 and row["Future Mutation"] >= 1:
+            return 3  # Green for both present
+        elif row["Future Mutation"] >= 1:
+            return 2  # Blue for future
+        elif row["Microbial Status"] >= 1:
+            return 1  # Red for microbial
+        else:
+            return 0  # White for absence
+
+    df["Color Code"] = df.apply(assign_color, axis=1)
+
+    # Set genes as index and retain only the color-coded values
+    df = df.set_index("Gene/Category")[["Color Code"]]
+
+    # Rename column for clarity
+    df.columns = ["Microbe"]
+
+    # Define custom colormap (0=white, 1=red, 2=blue, 3=green)
+    cmap = ListedColormap(["white", "red", "blue", "green"])  # ✅ Fix: Now properly defined
+
+    # Create heatmap
+    plt.figure(figsize=(5, 10))  # Adjusted for better visibility
+    sns.heatmap(df, cmap=cmap, linewidths=0.5, annot=False, cbar=False, xticklabels=True, yticklabels=True)
+
+    # Set labels and title
+    plt.xlabel("Microbes")
+    plt.ylabel("Genes")
+    plt.title("Gene Presence Heatmap")
+
+    # Save the heatmap as an image
+    plt.savefig(heatmap_path, dpi=300, bbox_inches='tight')
+    plt.close()
+
+    print(f"Heatmap saved to {heatmap_path}")
 
 
 def main():
@@ -295,6 +368,7 @@ def main():
     blast_results_file = r"C:\\Users\\Lenovo\\Desktop\\Zoonoticmap\\blast_results_annotated.tsv"
     annotation_file = r"C:\\Users\\Lenovo\\Desktop\\Zoonoticmap\\annotations_1.xlsx"
     final_excel = r"C:\\Users\\Lenovo\\Desktop\\Zoonoticmap\\final_results.xlsx"
+    heatmap_image = r"C:\\Users\\Lenovo\\Desktop\\Zoonoticmap\\heatmap.png"
 
     create_annotations_file(query_file, annotation_file)
     run_blast(query_file, db_path, blast_results_file)
@@ -306,5 +380,9 @@ def main():
     save_results_to_excel(high_identity_results, mid_identity_results, final_excel)
     print(f"Results saved to {final_excel}")
 
+    # Generate and save heatmap
+    generate_heatmap(final_excel, heatmap_image)
+    print(f"Heatmap saved to {heatmap_image}")
+
 if __name__ == "__main__":
-    main() 
+    main()
